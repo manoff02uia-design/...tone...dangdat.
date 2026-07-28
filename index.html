@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MODSKIN - download</title>
+    <title>MODSKIN - Download</title>
     <style>
         * {
             margin: 0;
@@ -117,10 +117,6 @@
         .btn-download:active {
             transform: scale(0.96);
         }
-        .btn-download i {
-            font-size: 26px;
-            line-height: 1;
-        }
         .btn-copy {
             margin-top: 16px;
             display: inline-block;
@@ -156,9 +152,9 @@
     <div class="card">
         <div class="icon-box">🎮</div>
         <h1>MODSKIN</h1>
-        <div class="sub-title">⚡ Dark Mode · Direct Link </div>
+        <div class="sub-title">⚡ Dark UI · Direct link</div>
         <div class="file-info">
-            <div class="label">📦 package name</div>
+            <div class="label">📦 Package name</div>
             <div class="name">MODSKIN 💩🥀🙏👍🐧</div>
             <div class="size">🔗 MediaFire · ZIP</div>
         </div>
@@ -166,10 +162,10 @@
            class="btn-download" 
            target="_blank" 
            rel="noopener noreferrer">
-            ⬇️ Tải xuống ngay
+            ⬇️ Download now
         </a>
-        <div class="btn-copy" id="copyBtn">📋 copy </div>
-        <div class="footer">GitHub dodat tone</div>
+        <div class="btn-copy" id="copyBtn">📋 Copy download link</div>
+        <div class="footer">GitHub · Dark optimized · for display only</div>
     </div>
     <script>
         (function() {
@@ -179,7 +175,7 @@
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(url).then(function() {
                         const old = btn.innerText;
-                        btn.innerText = '✅ copied!';
+                        btn.innerText = '✅ Copied!';
                         btn.style.color = '#a78aff';
                         setTimeout(function() {
                             btn.innerText = old;
@@ -196,13 +192,13 @@
                 try {
                     document.execCommand('copy');
                     const old = btn.innerText;
-                    btn.innerText = '✅ copied!';
+                    btn.innerText = '✅ Copied!';
                     btn.style.color = '#a78aff';
                     setTimeout(function() {
                         btn.innerText = old;
                         btn.style.color = '';
                     }, 2000);
-                } catch (x) { alert('copy'); }
+                } catch (x) { alert('Copy manually'); }
                 document.body.removeChild(e);
             }
         })();
