@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -154,7 +154,6 @@
             border-top: 1px dashed rgba(255,255,255,0.08);
         }
 
-        /* like button */
         .like-area {
             margin-top: 24px;
             display: flex;
@@ -184,11 +183,11 @@
             position: absolute;
             top: 70px;
             left: 20px;
+            right: 20px;
             background: rgba(10,10,20,0.95);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 16px;
             padding: 16px 20px;
-            min-width: 180px;
             text-align: left;
             color: #c8b6ff;
             font-size: 14px;
@@ -211,7 +210,6 @@
             .card { padding: 28px 18px; border-radius: 32px; }
             h1 { font-size: 26px; }
             .btn-download { font-size: 17px; padding: 15px 20px; }
-            .eye-popup { left: 10px; right: 10px; min-width: auto; }
         }
     </style>
 </head>
@@ -223,40 +221,40 @@
         <button class="lang-btn" id="langBtn">English</button>
     </div>
 
-    <!-- eye popup -->
+    <!-- eye popup (ẩn, chỉ hiện khi nhập đúng pass) -->
     <div class="eye-popup" id="eyePopup">
-        <div class="row"><span class="label">🔑 Password</span><span class="value">modskin2026</span></div>
-        <div class="row"><span class="label">👁️ Views</span><span class="value" id="viewCount">0</span></div>
+        <div class="row"><span class="label">🔑 Mật khẩu</span><span class="value" id="passDisplay">modskin2026</span></div>
+        <div class="row"><span class="label">👁️ Lượt xem</span><span class="value" id="viewCount">0</span></div>
     </div>
 
     <div class="icon-box">🎮</div>
     <h1 id="title">MODSKIN</h1>
 
-    <!-- Main file -->
+    <!-- File chính -->
     <div class="file-block">
-        <div class="label" id="label1">📦 Package name</div>
+        <div class="label" id="label1">📦 Tên gói</div>
         <div class="name" id="name1">MODSKIN</div>
         <div class="size" id="size1">🔗 MediaFire · ZIP</div>
     </div>
     <a href="https://www.mediafire.com/file/3ewb4rriu012zfh/MODSKIN%25F0%259F%2592%25A9%25F0%259F%25A5%2580%25F0%259F%2599%258F%25F0%259F%2591%258D%25F0%259F%2590%25A7%25282%2529.zip/file"
        class="btn-download" id="btn1" target="_blank" rel="noopener noreferrer">
-        ⬇️ Download now
+        ⬇️ Tải xuống ngay
     </a>
-    <div class="btn-copy" id="copy1">📋 Copy download link</div>
+    <div class="btn-copy" id="copy1">📋 Sao chép đường dẫn tải</div>
 
-    <!-- Extra fake file -->
+    <!-- File thứ hai (giống hệt nhưng link khác) -->
     <div class="extra-section">
         <div class="file-block">
-            <div class="label" id="label2">📦 Package name</div>
+            <div class="label" id="label2">📦 Tên gói</div>
             <div class="name" id="name2">MODSKIN</div>
-            <div class="size" id="size2">🔗 MediaFire · APK</div>
+            <div class="size" id="size2">🔗 MediaFire · ZIP</div>
         </div>
         <a href="https://www.mediafire.com/file/q7i92bgxdqoj08g/GHOST+MODS+APK+MAIN+ID+SAFE+.apk/file"
            class="btn-download" id="btn2" target="_blank" rel="noopener noreferrer"
            style="background: linear-gradient(135deg, #4a3f7a, #6a4f9a); box-shadow: 0 12px 28px rgba(74,63,122,0.45);">
-            ⬇️ Download now
+            ⬇️ Tải xuống ngay
         </a>
-        <div class="btn-copy" id="copy2">📋 Copy download link</div>
+        <div class="btn-copy" id="copy2">📋 Sao chép đường dẫn tải</div>
     </div>
 
     <!-- Like -->
@@ -268,7 +266,7 @@
 
 <script>
     (function() {
-        // ----- language data (only keep necessary labels) -----
+        // ----- Ngôn ngữ (chỉ cần thiết) -----
         const langData = {
             label1: { vi: '📦 Tên gói', en: '📦 Package name' },
             name1:  { vi: 'MODSKIN', en: 'MODSKIN' },
@@ -277,12 +275,11 @@
             copy1:  { vi: '📋 Sao chép đường dẫn tải', en: '📋 Copy download link' },
             label2: { vi: '📦 Tên gói', en: '📦 Package name' },
             name2:  { vi: 'MODSKIN', en: 'MODSKIN' },
-            size2:  { vi: '🔗 MediaFire · APK', en: '🔗 MediaFire · APK' },
+            size2:  { vi: '🔗 MediaFire · ZIP', en: '🔗 MediaFire · ZIP' },
             btn2:   { vi: '⬇️ Tải xuống ngay', en: '⬇️ Download now' },
             copy2:  { vi: '📋 Sao chép đường dẫn tải', en: '📋 Copy download link' },
             toggle: { vi: 'English', en: 'Tiếng Việt' }
         };
-
         const el = {
             label1: document.getElementById('label1'),
             name1:  document.getElementById('name1'),
@@ -296,15 +293,12 @@
             copy2:  document.getElementById('copy2'),
             langBtn: document.getElementById('langBtn')
         };
-
         let currentLang = 'vi';
         function setLanguage(lang) {
             currentLang = lang;
             for (let key in langData) {
                 if (key === 'toggle') continue;
-                if (el[key]) {
-                    el[key].innerText = langData[key][lang];
-                }
+                if (el[key]) el[key].innerText = langData[key][lang];
             }
             el.langBtn.innerText = langData.toggle[lang];
         }
@@ -313,26 +307,44 @@
         });
         setLanguage('vi');
 
-        // ----- eye button (show password & view count) -----
+        // ----- Eye: bấm vào -> nhập password -> nếu đúng thì hiện popup -----
         const eyeBtn = document.getElementById('eyeBtn');
         const eyePopup = document.getElementById('eyePopup');
+        const passDisplay = document.getElementById('passDisplay');
+        const secretPass = 'modskin2026';  // mật khẩu cố định, không hiển thị sẵn
+
         eyeBtn.addEventListener('click', function() {
-            eyePopup.classList.toggle('show');
+            // nếu popup đang hiện thì tắt đi (toggle)
+            if (eyePopup.classList.contains('show')) {
+                eyePopup.classList.remove('show');
+                return;
+            }
+            // yêu cầu nhập mật khẩu
+            const input = prompt('🔐 Nhập mật khẩu để xem:');
+            if (input === null) return; // hủy
+            if (input === secretPass) {
+                // đúng -> hiện popup
+                eyePopup.classList.add('show');
+                // cập nhật lượt xem (đã tăng ở dưới)
+            } else {
+                alert('❌ Mật khẩu sai!');
+            }
         });
-        // click outside to close
+
+        // đóng popup khi click ra ngoài
         document.addEventListener('click', function(e) {
             if (!eyeBtn.contains(e.target) && !eyePopup.contains(e.target)) {
                 eyePopup.classList.remove('show');
             }
         });
 
-        // ----- view count (store in localStorage) -----
+        // ----- Lượt xem (tăng mỗi lần load trang) -----
         let views = parseInt(localStorage.getItem('modskin_views')) || 0;
         views++;
         localStorage.setItem('modskin_views', views);
         document.getElementById('viewCount').innerText = views;
 
-        // ----- like button (one like per user) -----
+        // ----- Like (mỗi người 1 lần) -----
         const likeBtn = document.getElementById('likeBtn');
         const likeCount = document.getElementById('likeCount');
         let likes = parseInt(localStorage.getItem('modskin_likes')) || 0;
@@ -359,7 +371,7 @@
             updateLikeUI();
         });
 
-        // ----- copy functions -----
+        // ----- Sao chép -----
         function copyText(text, btn) {
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(text).then(function() {
@@ -375,12 +387,12 @@
             try {
                 document.execCommand('copy');
                 showCopied(btn);
-            } catch (x) { alert('Copy manually'); }
+            } catch (x) { alert('Sao chép thủ công'); }
             document.body.removeChild(e);
         }
         function showCopied(btn) {
             const old = btn.innerText;
-            btn.innerText = '✅ Copied!';
+            btn.innerText = '✅ Đã sao chép!';
             btn.style.color = '#a78aff';
             setTimeout(function() {
                 btn.innerText = old;
@@ -394,314 +406,5 @@
         document.getElementById('copy2').addEventListener('click', function() { copyText(url2, this); });
     })();
 </script>
-</body>
-</html>            margin-top: 4px;
-            word-break: break-all;
-        }
-        .file-info .size {
-            font-size: 13px;
-            color: rgba(180, 170, 230, 0.5);
-            margin-top: 6px;
-        }
-        .btn-download {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            padding: 18px 24px;
-            background: linear-gradient(135deg, #7c5cfc, #b45aff);
-            border: none;
-            border-radius: 40px;
-            font-size: 20px;
-            font-weight: 600;
-            color: #fff;
-            text-decoration: none;
-            box-shadow: 0 12px 28px rgba(124, 92, 252, 0.45);
-            transition: all 0.2s ease;
-            letter-spacing: 0.3px;
-        }
-        .btn-download:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(124, 92, 252, 0.65);
-            background: linear-gradient(135deg, #8f6eff, #c76aff);
-        }
-        .btn-download:active {
-            transform: scale(0.96);
-        }
-        .btn-copy {
-            margin-top: 12px;
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 12px 18px;
-            border-radius: 40px;
-            color: rgba(200, 190, 255, 0.5);
-            font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-            text-align: center;
-        }
-        .btn-copy:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #b8acff;
-        }
-        .footer {
-            margin-top: 28px;
-            font-size: 12px;
-            color: rgba(120, 110, 180, 0.3);
-            letter-spacing: 0.5px;
-        }
-        .extra-section {
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px dashed rgba(255, 255, 255, 0.08);
-        }
-        .extra-section .file-info {
-            margin-bottom: 16px;
-        }
-        @media (max-width: 420px) {
-            .card { padding: 28px 18px; border-radius: 32px; }
-            h1 { font-size: 26px; }
-            .btn-download { font-size: 17px; padding: 15px 20px; }
-        }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <div class="lang-toggle">
-            <button id="langBtn">English</button>
-        </div>
-        <div class="icon-box">🎮</div>
-        <h1 id="title">...</h1>
-        <div class="sub-title" id="sub">Giao diện tối · Đường dẫn trực tiếp</div>
-        
-        <!-- Main file -->
-        <div class="file-info">
-            <div class="label" id="label1">📦 Tên gói</div>
-            <div class="name" id="name1">...</div>
-            <div class="size" id="size1">🔗 MediaFire · ZIP</div>
-        </div>
-        <a href="https://www.mediafire.com/file/3ewb4rriu012zfh/MODSKIN%25F0%259F%2592%25A9%25F0%259F%25A5%2580%25F0%259F%2599%258F%25F0%259F%2591%258D%25F0%259F%2590%25A7%25282%2529.zip/file" 
-           class="btn-download" id="btn1" target="_blank" rel="noopener noreferrer">
-            ⬇️ Tải xuống ngay
-        </a>
-        <div class="btn-copy" id="copy1">📋 Sao chép đường dẫn tải</div>
-        
-        <!-- Extra fake file -->
-        <div class="extra-section">
-            <div class="file-info">
-                <div class="label" id="label2">📦 Tệp giả</div>
-                <div class="name" id="name2">GHOST MODS APK MAIN ID SAFE .apk</div>
-                <div class="size" id="size2">🔗 MediaFire · APK</div>
-            </div>
-            <a href="https://www.mediafire.com/file/q7i92bgxdqoj08g/GHOST+MODS+APK+MAIN+ID+SAFE+.apk/file" 
-               class="btn-download" id="btn2" target="_blank" rel="noopener noreferrer" 
-               style="background: linear-gradient(135deg, #4a3f7a, #6a4f9a); box-shadow: 0 12px 28px rgba(74, 63, 122, 0.45);">
-                ⬇️ Tải xuống giả
-            </a>
-            <div class="btn-copy" id="copy2">📋 Sao chép link giả</div>
-        </div>
-        
-        <div class="footer" id="footer">GitHub · Giao diện tối ưu · chỉ hiển thị</div>
-    </div>
-    <script>
-        (function() {
-            // language data
-            const langData = {
-                sub: { vi: 'Giao diện tối · Đường dẫn trực tiếp', en: 'Dark UI · Direct link' },
-                label1: { vi: '📦 Tên gói', en: '📦 Package name' },
-                name1: { vi: '...', en: '...' },
-                size1: { vi: '🔗 MediaFire · ZIP', en: '🔗 MediaFire · ZIP' },
-                btn1: { vi: '⬇️ Tải xuống ngay', en: '⬇️ Download now' },
-                copy1: { vi: '📋 Sao chép đường dẫn tải', en: '📋 Copy download link' },
-                label2: { vi: '📦 Tệp giả', en: '📦 Fake file' },
-                name2: { vi: 'GHOST MODS APK MAIN ID SAFE .apk', en: 'GHOST MODS APK MAIN ID SAFE .apk' },
-                size2: { vi: '🔗 MediaFire · APK', en: '🔗 MediaFire · APK' },
-                btn2: { vi: '⬇️ Tải xuống giả', en: '⬇️ Download fake' },
-                copy2: { vi: '📋 Sao chép link giả', en: '📋 Copy fake link' },
-                footer: { vi: 'GitHub · Giao diện tối ưu · chỉ hiển thị', en: 'GitHub · Dark optimized · for display only' },
-                toggle: { vi: 'English', en: 'Tiếng Việt' }
-            };
-
-            // elements
-            const el = {
-                sub: document.getElementById('sub'),
-                label1: document.getElementById('label1'),
-                name1: document.getElementById('name1'),
-                size1: document.getElementById('size1'),
-                btn1: document.getElementById('btn1'),
-                copy1: document.getElementById('copy1'),
-                label2: document.getElementById('label2'),
-                name2: document.getElementById('name2'),
-                size2: document.getElementById('size2'),
-                btn2: document.getElementById('btn2'),
-                copy2: document.getElementById('copy2'),
-                footer: document.getElementById('footer'),
-                langBtn: document.getElementById('langBtn')
-            };
-
-            let currentLang = 'vi'; // default Vietnamese
-
-            function setLanguage(lang) {
-                currentLang = lang;
-                // update all texts
-                for (let key in langData) {
-                    if (key === 'toggle') continue;
-                    const elKey = key;
-                    if (el[elKey]) {
-                        el[elKey].innerText = langData[key][lang];
-                    }
-                }
-                // update toggle button text
-                el.langBtn.innerText = langData.toggle[lang];
-            }
-
-            // toggle function
-            function toggleLang() {
-                const next = (currentLang === 'vi') ? 'en' : 'vi';
-                setLanguage(next);
-            }
-
-            el.langBtn.addEventListener('click', toggleLang);
-
-            // initial set to Vietnamese
-            setLanguage('vi');
-
-            // copy functions
-            function copyText(text, btn) {
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(text).then(function() {
-                        showCopied(btn);
-                    }).catch(function() { fallback(text, btn); });
-                } else { fallback(text, btn); }
-            }
-            function fallback(text, btn) {
-                const e = document.createElement('input');
-                e.value = text;
-                document.body.appendChild(e);
-                e.select();
-                try {
-                    document.execCommand('copy');
-                    showCopied(btn);
-                } catch (x) { alert('Copy manually'); }
-                document.body.removeChild(e);
-            }
-            function showCopied(btn) {
-                const old = btn.innerText;
-                btn.innerText = '✅ Copied!';
-                btn.style.color = '#a78aff';
-                setTimeout(function() {
-                    btn.innerText = old;
-                    btn.style.color = '';
-                }, 2000);
-            }
-
-            const url1 = 'https://www.mediafire.com/file/3ewb4rriu012zfh/MODSKIN%25F0%259F%2592%25A9%25F0%259F%25A5%2580%25F0%259F%2599%258F%25F0%259F%2591%258D%25F0%259F%2590%25A7%25282%2529.zip/file';
-            const url2 = 'https://www.mediafire.com/file/q7i92bgxdqoj08g/GHOST+MODS+APK+MAIN+ID+SAFE+.apk/file';
-            document.getElementById('copy1').addEventListener('click', function() { copyText(url1, this); });
-            document.getElementById('copy2').addEventListener('click', function() { copyText(url2, this); });
-        })();
-    </script>
-</body>
-</html>            box-shadow: 0 12px 28px rgba(124, 92, 252, 0.45);
-            transition: all 0.2s ease;
-            letter-spacing: 0.3px;
-        }
-        .btn-download:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(124, 92, 252, 0.65);
-            background: linear-gradient(135deg, #8f6eff, #c76aff);
-        }
-        .btn-download:active {
-            transform: scale(0.96);
-        }
-        .btn-copy {
-            margin-top: 16px;
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 12px 18px;
-            border-radius: 40px;
-            color: rgba(200, 190, 255, 0.5);
-            font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-            text-align: center;
-        }
-        .btn-copy:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #b8acff;
-        }
-        .footer {
-            margin-top: 28px;
-            font-size: 12px;
-            color: rgba(120, 110, 180, 0.3);
-            letter-spacing: 0.5px;
-        }
-        @media (max-width: 420px) {
-            .card { padding: 28px 18px; border-radius: 32px; }
-            h1 { font-size: 26px; }
-            .btn-download { font-size: 17px; padding: 15px 20px; }
-        }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <div class="icon-box">🎮</div>
-        <h1>MODSKIN</h1>
-        <div class="sub-title">⚡ Dark UI · Direct link</div>
-        <div class="file-info">
-            <div class="label">📦 Package name</div>
-            <div class="name">MODSKIN 💩🥀🙏👍🐧</div>
-            <div class="size">🔗 MediaFire · ZIP</div>
-        </div>
-        <a href="https://www.mediafire.com/file/rom2dvrainpwiay/MODSKIN%25F0%259F%2592%25A9%25F0%259F%25A5%2580%25F0%259F%2599%258F%25F0%259F%2591%258D%25F0%259F%2590%25A7.zip/file" 
-           class="btn-download" 
-           target="_blank" 
-           rel="noopener noreferrer">
-            ⬇️ Download now
-        </a>
-        <div class="btn-copy" id="copyBtn">📋 Copy download link</div>
-        <div class="footer">GitHub · Dark optimized · for display only</div>
-    </div>
-    <script>
-        (function() {
-            const btn = document.getElementById('copyBtn');
-            const url = 'https://www.mediafire.com/file/rom2dvrainpwiay/MODSKIN%25F0%259F%2592%25A9%25F0%259F%25A5%2580%25F0%259F%2599%258F%25F0%259F%2591%258D%25F0%259F%2590%25A7.zip/file';
-            btn.addEventListener('click', function() {
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(url).then(function() {
-                        const old = btn.innerText;
-                        btn.innerText = '✅ Copied!';
-                        btn.style.color = '#a78aff';
-                        setTimeout(function() {
-                            btn.innerText = old;
-                            btn.style.color = '';
-                        }, 2000);
-                    }).catch(function() { fallback(url); });
-                } else { fallback(url); }
-            });
-            function fallback(t) {
-                const e = document.createElement('input');
-                e.value = t;
-                document.body.appendChild(e);
-                e.select();
-                try {
-                    document.execCommand('copy');
-                    const old = btn.innerText;
-                    btn.innerText = '✅ Copied!';
-                    btn.style.color = '#a78aff';
-                    setTimeout(function() {
-                        btn.innerText = old;
-                        btn.style.color = '';
-                    }, 2000);
-                } catch (x) { alert('Copy manually'); }
-                document.body.removeChild(e);
-            }
-        })();
-    </script>
 </body>
 </html>
