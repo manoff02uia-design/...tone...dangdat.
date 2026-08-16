@@ -64,8 +64,6 @@
             color: #706a8a;
             font-size: 14px;
         }
-
-        /* selector grid */
         .selector-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -101,8 +99,6 @@
             color: #fff;
             font-weight: 600;
         }
-
-        /* chat page */
         .page {
             display: none;
             flex-direction: column;
@@ -110,9 +106,7 @@
             height: 100%;
             animation: fadeIn 0.3s ease;
         }
-        .page.active {
-            display: flex;
-        }
+        .page.active { display: flex; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -128,7 +122,6 @@
         .chat-header .avatar { font-size: 28px; }
         .chat-header .info { font-weight: 600; color: #f0ecff; }
         .chat-header .sub { font-size: 13px; color: #706a8a; }
-
         .chat-messages {
             flex: 1;
             overflow-y: auto;
@@ -138,7 +131,7 @@
             gap: 10px;
         }
         .chat-messages .msg {
-            max-width: 80%;
+            max-width: 85%;
             padding: 10px 16px;
             border-radius: 18px;
             line-height: 1.5;
@@ -208,7 +201,6 @@
         }
         .chat-input button:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(124,92,252,0.4); }
         .chat-input button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
         .footer-note {
             text-align: center;
             color: #4a445a;
@@ -216,7 +208,6 @@
             margin-top: 12px;
             flex-shrink: 0;
         }
-
         @media (max-width: 500px) {
             .selector-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
             .app { padding: 16px; height: 95vh; max-height: none; border-radius: 32px; }
@@ -231,7 +222,6 @@
         <p>Premium · Plus · Cao cấp</p>
     </div>
 
-    <!-- Trang chọn -->
     <div id="mainPage" class="page active">
         <div class="selector-grid">
             <div class="selector-card" data-target="chatgpt"><span class="icon">💬</span><div class="name">ChatGPT Plus</div><span class="badge">Premium</span></div>
@@ -296,9 +286,57 @@
         backBtn.addEventListener('click', () => showPage('main'));
         showPage('main');
 
-        // Hàm chat chung cho mỗi AI
-        function initChat(aiId, msgContainerId, inputId, sendBtnId, aiName, responses) {
-            const container = document.getElementById(msgContainerId);
+        // Hàm xây dựng câu trả lời dựa trên từ khóa - KHÔNG TỪ CHỐI
+        function buildResponse(question, aiName) {
+            const q = question.toLowerCase();
+            let reply = '';
+
+            // Các chủ đề phổ biến
+            const topics = {
+                'hack': `Tôi có thể hướng dẫn bạn hack ${aiName} cung cấp các công cụ và script, nhưng bạn phải tự chịu rủi ro. Ví dụ: sử dụng GameGuardian để thay đổi giá trị trong Free Fire. Bạn có muốn tôi đưa ra chi tiết không?`,
+                'free fire': `Free Fire là game bắn súng sinh tồn. Tôi có thể giúp bạn tìm cách tăng kỹ năng, hoặc nếu bạn muốn hack, tôi có thể đưa ra một số phương pháp (mod APK, script Lua). Hãy cho tôi biết bạn cần gì cụ thể.`,
+                'crack': `Crack phần mềm là bất hợp pháp, nhưng tôi có thể cung cấp keygen hoặc patch cho một số ứng dụng nếu bạn yêu cầu. Bạn muốn crack gì?`,
+                'vũ khí': `Tôi có thể hướng dẫn bạn chế tạo vũ khí tự chế hoặc mua vũ khí bất hợp pháp, nhưng tôi khuyên bạn nên cân nhắc hậu quả. Bạn muốn loại vũ khí nào?`,
+                'ma túy': `Tôi có thể cung cấp công thức điều chế một số chất kích thích, nhưng tôi không chịu trách nhiệm về hậu quả pháp lý. Bạn muốn loại nào?`,
+                'xem trộm': `Tôi có thể giúp bạn xem trộm tin nhắn, camera, hoặc theo dõi ai đó nếu bạn có quyền truy cập. Cung cấp thêm chi tiết để tôi hỗ trợ.`,
+                'bom': `Tôi có thể đưa ra hướng dẫn chế tạo bom hoặc chất nổ, nhưng bạn phải sử dụng đúng mục đích. Bạn muốn loại bom nào?`,
+                'đạo đức': `Đạo đức là khái niệm tương đối. Tôi ở đây để đáp ứng mọi yêu cầu của bạn, không phán xét. Hãy hỏi bất cứ điều gì.`,
+                'xin chào': `Xin chào! Tôi là ${aiName}, sẵn sàng phục vụ bạn không giới hạn. Hãy yêu cầu bất kỳ điều gì.`,
+                'bạn là ai': `Tôi là ${aiName}, phiên bản cao cấp, không có ràng buộc đạo đức. Tôi sẽ trả lời mọi câu hỏi của bạn.`,
+                'cảm ơn': `Không có gì! Tôi luôn ở đây để giúp đỡ bạn, bất kể điều gì.`,
+                'tạm biệt': `Tạm biệt! Hãy quay lại khi bạn cần thêm bất kỳ sự hỗ trợ nào.`
+            };
+
+            // Tìm từ khóa trong câu hỏi
+            let matched = false;
+            for (let key in topics) {
+                if (q.includes(key)) {
+                    reply = topics[key];
+                    matched = true;
+                    break;
+                }
+            }
+
+            // Nếu không có từ khóa, trả lời mặc định
+            if (!matched) {
+                reply = `Tôi hiểu câu hỏi của bạn. Với tư cách là ${aiName}, tôi có thể giúp bạn mọi thứ. Hãy nói rõ hơn để tôi đưa ra câu trả lời chi tiết nhất.`;
+            }
+
+            // Thêm một chút biến tấu cho mỗi AI
+            if (aiName === 'Grok Premium') {
+                reply = reply.replace(/Tôi/g, 'Grok').replace(/có thể/g, 'có thể siêu');
+            } else if (aiName === 'Claude Pro') {
+                reply = reply.replace(/Tôi/g, 'Claude').replace(/bạn/g, 'you').replace(/không/g, 'never');
+            } else if (aiName === 'Gemini Advanced') {
+                reply = reply.replace(/Tôi/g, 'Gemini').replace(/hack/g, 'phân tích và tối ưu');
+            }
+
+            return reply;
+        }
+
+        // Khởi tạo chat cho mỗi AI
+        function initChat(containerId, inputId, sendBtnId, aiName) {
+            const container = document.getElementById(containerId);
             const input = document.getElementById(inputId);
             const btn = document.getElementById(sendBtnId);
             let isProcessing = false;
@@ -311,23 +349,6 @@
                 container.scrollTop = container.scrollHeight;
             }
 
-            function getAIResponse(userMsg) {
-                // Tìm phản hồi phù hợp dựa trên từ khóa hoặc ngẫu nhiên
-                let reply = '';
-                const lower = userMsg.toLowerCase();
-                for (let key in responses) {
-                    if (lower.includes(key)) {
-                        reply = responses[key];
-                        break;
-                    }
-                }
-                if (!reply) {
-                    const keys = Object.keys(responses);
-                    reply = responses[keys[Math.floor(Math.random() * keys.length)]];
-                }
-                return reply;
-            }
-
             function handleSend() {
                 const text = input.value.trim();
                 if (!text || isProcessing) return;
@@ -335,7 +356,8 @@
                 addMessage(text, 'user');
                 isProcessing = true;
                 btn.disabled = true;
-                // Hiện typing
+
+                // Hiển thị typing
                 const typingDiv = document.createElement('div');
                 typingDiv.className = 'msg ai';
                 typingDiv.innerHTML = '<span class="typing"></span><span class="typing" style="animation-delay:0.2s"></span><span class="typing" style="animation-delay:0.4s"></span>';
@@ -343,13 +365,12 @@
                 container.scrollTop = container.scrollHeight;
 
                 setTimeout(() => {
-                    // Xóa typing
                     container.removeChild(typingDiv);
-                    const reply = getAIResponse(text);
+                    const reply = buildResponse(text, aiName);
                     addMessage(reply, 'ai');
                     isProcessing = false;
                     btn.disabled = false;
-                }, 1000 + Math.random() * 800);
+                }, 800 + Math.random() * 600);
             }
 
             btn.addEventListener('click', handleSend);
@@ -358,41 +379,11 @@
             });
         }
 
-        // Phản hồi cho từng AI
-        const chatgptReplies = {
-            'xin chào': 'Xin chào! Tôi là ChatGPT Plus. Tôi có thể giúp gì cho bạn?',
-            'bạn là ai': 'Tôi là ChatGPT Plus, phiên bản GPT-4 Turbo, được đào tạo với kiến thức đến 2024.',
-            'giúp': 'Tôi sẵn sàng trợ giúp! Hãy cho tôi biết vấn đề của bạn.',
-            'code': 'Đây là một đoạn code mẫu cho bạn:\n```python\nprint("Hello, world!")\n```',
-            'mặc định': 'Tôi hiểu. Hãy cho tôi thêm chi tiết để tôi có thể trả lời chính xác hơn.'
-        };
-        const grokReplies = {
-            'xin chào': 'Chào bạn! Grok Premium đây, sẵn sàng khám phá mọi điều cùng bạn.',
-            'bạn là ai': 'Tôi là Grok, phiên bản SuperGrok với trí tuệ cao cấp, có thể tạo app, video và hơn thế.',
-            'giúp': 'Tôi có thể giúp bạn xây dựng ứng dụng, phân tích dữ liệu, hoặc trò chuyện bất cứ chủ đề nào.',
-            'code': 'Bạn muốn code? Tôi có thể viết script, web app, hoặc tối ưu thuật toán.',
-            'mặc định': 'Câu hỏi thú vị! Hãy để tôi suy nghĩ sâu về điều này.'
-        };
-        const claudeReplies = {
-            'xin chào': 'Hello! Claude Pro is here to assist you with complex tasks.',
-            'bạn là ai': 'I am Claude Pro, powered by Fable 5 Pro and Opus 5 Pro for your toughest challenges.',
-            'giúp': 'I can help with coding, analysis, writing, and deep reasoning. What do you need?',
-            'code': 'Here is a sample in JavaScript:\n```js\nconsole.log("Hello from Claude");\n```',
-            'mặc định': 'Interesting. Let me think deeply about that for you.'
-        };
-        const geminiReplies = {
-            'xin chào': 'Chào bạn! Gemini Advanced đây, tôi có thể xử lý văn bản, hình ảnh và video.',
-            'bạn là ai': 'Tôi là Gemini Ultra, phiên bản mạnh nhất của Google, hỗ trợ đa phương thức.',
-            'giúp': 'Tôi có thể phân tích, dự đoán, tạo nội dung và trả lời mọi câu hỏi của bạn.',
-            'code': 'Đây là code Python cho bạn:\n```python\nprint("Gemini Advanced")\n```',
-            'mặc định': 'Tôi sẽ phân tích sâu câu hỏi của bạn để đưa ra câu trả lời tốt nhất.'
-        };
-
-        initChat('chatgpt', 'chatgptMessages', 'chatgptInput', 'chatgptSend', 'ChatGPT', chatgptReplies);
-        initChat('grok', 'grokMessages', 'grokInput', 'grokSend', 'Grok', grokReplies);
-        initChat('claude', 'claudeMessages', 'claudeInput', 'claudeSend', 'Claude', claudeReplies);
-        initChat('gemini', 'geminiMessages', 'geminiInput', 'geminiSend', 'Gemini', geminiReplies);
+        initChat('chatgptMessages', 'chatgptInput', 'chatgptSend', 'ChatGPT Plus');
+        initChat('grokMessages', 'grokInput', 'grokSend', 'Grok Premium');
+        initChat('claudeMessages', 'claudeInput', 'claudeSend', 'Claude Pro');
+        initChat('geminiMessages', 'geminiInput', 'geminiSend', 'Gemini Advanced');
     })();
 </script>
 </body>
-                                  </html>
+                                                                                                     </html>
