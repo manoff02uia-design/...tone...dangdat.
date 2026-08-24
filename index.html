@@ -189,6 +189,11 @@
         .eye-popup .row:last-child { border-bottom: none; }
         .eye-popup .label { color: rgba(160,150,220,0.5); }
         .eye-popup .value { color: #f0ecff; font-weight: 500; }
+        .extra-section {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255,255,255,0.08);
+        }
         @media (max-width: 420px) {
             .card { padding: 28px 18px; border-radius: 32px; }
             h1 { font-size: 26px; }
@@ -218,6 +223,37 @@
         ⬇️ Tải xuống ngay
     </a>
     <div class="btn-copy" id="copy1">📋 Sao chép đường dẫn tải</div>
+
+    <!-- Hack Free Fire OB54 -->
+    <div class="extra-section">
+        <div class="file-block">
+            <div class="label" id="label2">📦 Hack Free Fire OB54</div>
+            <div class="name" id="name2">NamCyber V81</div>
+            <div class="size" id="size2">🔗 MediaFire · APK · 18.3 MB</div>
+        </div>
+        <a href="https://www.mediafire.com/file/5wdd0hzc3nf68a0/NamCyber_V81.apk/file" 
+           class="btn-download" id="btn2" target="_blank" rel="noopener noreferrer"
+           style="background: linear-gradient(135deg, #4a3f7a, #6a4f9a); box-shadow: 0 12px 28px rgba(74,63,122,0.45);">
+            ⬇️ Tải xuống ngay
+        </a>
+        <div class="btn-copy" id="copy2">📋 Sao chép đường dẫn tải</div>
+    </div>
+
+    <!-- Free Fire 2.13.11 -->
+    <div class="extra-section">
+        <div class="file-block">
+            <div class="label" id="label3">📦 Free Fire 2.13.11</div>
+            <div class="name" id="name3">Free Fire Max 2.13.11</div>
+            <div class="size" id="size3">🔗 MediaFire · XAPK · 476.55 MB</div>
+        </div>
+        <a href="https://www.mediafire.com/file/jeq7mh627mj7yvx/free-fire-max-21311-apkcombocom.xapk/file" 
+           class="btn-download" id="btn3" target="_blank" rel="noopener noreferrer"
+           style="background: linear-gradient(135deg, #2d4a7a, #4a6f9a); box-shadow: 0 12px 28px rgba(45,74,122,0.45);">
+            ⬇️ Tải xuống ngay
+        </a>
+        <div class="btn-copy" id="copy3">📋 Sao chép đường dẫn tải</div>
+    </div>
+
     <div class="like-area">
         <button class="like-btn" id="likeBtn">❤️</button>
         <span class="like-count" id="likeCount">0</span>
@@ -231,6 +267,16 @@
             size1:  { vi: '🔗 MediaFire · ZIP', en: '🔗 MediaFire · ZIP' },
             btn1:   { vi: '⬇️ Tải xuống ngay', en: '⬇️ Download now' },
             copy1:  { vi: '📋 Sao chép đường dẫn tải', en: '📋 Copy download link' },
+            label2: { vi: '📦 Hack Free Fire OB54', en: '📦 Hack Free Fire OB54' },
+            name2:  { vi: 'NamCyber V81', en: 'NamCyber V81' },
+            size2:  { vi: '🔗 MediaFire · APK · 18.3 MB', en: '🔗 MediaFire · APK · 18.3 MB' },
+            btn2:   { vi: '⬇️ Tải xuống ngay', en: '⬇️ Download now' },
+            copy2:  { vi: '📋 Sao chép đường dẫn tải', en: '📋 Copy download link' },
+            label3: { vi: '📦 Free Fire 2.13.11', en: '📦 Free Fire 2.13.11' },
+            name3:  { vi: 'Free Fire Max 2.13.11', en: 'Free Fire Max 2.13.11' },
+            size3:  { vi: '🔗 MediaFire · XAPK · 476.55 MB', en: '🔗 MediaFire · XAPK · 476.55 MB' },
+            btn3:   { vi: '⬇️ Tải xuống ngay', en: '⬇️ Download now' },
+            copy3:  { vi: '📋 Sao chép đường dẫn tải', en: '📋 Copy download link' },
             toggle: { vi: 'English', en: 'Tiếng Việt' },
             passLabel: { vi: '🔑 Mật khẩu', en: '🔑 Password' },
             viewLabel: { vi: '👁️ Lượt xem', en: '👁️ Views' },
@@ -243,6 +289,16 @@
             size1:  document.getElementById('size1'),
             btn1:   document.getElementById('btn1'),
             copy1:  document.getElementById('copy1'),
+            label2: document.getElementById('label2'),
+            name2:  document.getElementById('name2'),
+            size2:  document.getElementById('size2'),
+            btn2:   document.getElementById('btn2'),
+            copy2:  document.getElementById('copy2'),
+            label3: document.getElementById('label3'),
+            name3:  document.getElementById('name3'),
+            size3:  document.getElementById('size3'),
+            btn3:   document.getElementById('btn3'),
+            copy3:  document.getElementById('copy3'),
             langBtn: document.getElementById('langBtn'),
             passLabel: document.getElementById('passLabel'),
             viewLabel: document.getElementById('viewLabel')
@@ -326,8 +382,12 @@
                 btn.style.color = '';
             }, 2000);
         }
-        var url = 'https://www.mediafire.com/file/3ewb4rriu012zfh/MODSKIN%25F0%259F%2592%25A9%25F0%259F%25A5%2580%25F0%259F%2599%258F%25F0%259F%2591%258D%25F0%259F%2590%25A7%25282%2529.zip/file';
-        document.getElementById('copy1').addEventListener('click', function() { copyText(url, this); });
+        var url1 = 'https://www.mediafire.com/file/3ewb4rriu012zfh/MODSKIN%25F0%259F%2592%25A9%25F0%259F%25A5%2580%25F0%259F%2599%258F%25F0%259F%2591%258D%25F0%259F%2590%25A7%25282%2529.zip/file';
+        var url2 = 'https://www.mediafire.com/file/5wdd0hzc3nf68a0/NamCyber_V81.apk/file';
+        var url3 = 'https://www.mediafire.com/file/jeq7mh627mj7yvx/free-fire-max-21311-apkcombocom.xapk/file';
+        document.getElementById('copy1').addEventListener('click', function() { copyText(url1, this); });
+        document.getElementById('copy2').addEventListener('click', function() { copyText(url2, this); });
+        document.getElementById('copy3').addEventListener('click', function() { copyText(url3, this); });
     })();
 </script>
 </body>
