@@ -30,24 +30,21 @@
             position: relative;
         }
         .card:hover { transform: scale(1.01); }
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .eye-btn, .lang-btn {
+        .lang-btn {
+            position: absolute;
+            top: 20px;
+            right: 24px;
             background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.08);
             color: rgba(200,190,255,0.7);
             padding: 6px 14px;
             border-radius: 30px;
-            font-size: 18px;
+            font-size: 14px;
             cursor: pointer;
             transition: 0.2s;
             line-height: 1;
         }
-        .eye-btn:hover, .lang-btn:hover {
+        .lang-btn:hover {
             background: rgba(255,255,255,0.12);
             color: #fff;
         }
@@ -140,55 +137,6 @@
             background: rgba(255,255,255,0.08);
             color: #b8acff;
         }
-        .like-area {
-            margin-top: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-        }
-        .like-btn {
-            background: none;
-            border: none;
-            font-size: 32px;
-            cursor: pointer;
-            transition: 0.2s;
-            color: rgba(255,255,255,0.3);
-        }
-        .like-btn.liked { color: #ff4757; }
-        .like-btn:hover { transform: scale(1.15); }
-        .like-count {
-            color: rgba(200,190,255,0.6);
-            font-size: 18px;
-            font-weight: 500;
-        }
-        .eye-popup {
-            display: none;
-            position: absolute;
-            top: 70px;
-            left: 20px;
-            right: 20px;
-            background: rgba(10,10,20,0.95);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 16px 20px;
-            text-align: left;
-            color: #c8b6ff;
-            font-size: 14px;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-            z-index: 10;
-        }
-        .eye-popup.show { display: block; }
-        .eye-popup .row {
-            display: flex;
-            justify-content: space-between;
-            padding: 4px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .eye-popup .row:last-child { border-bottom: none; }
-        .eye-popup .label { color: rgba(160,150,220,0.5); }
-        .eye-popup .value { color: #f0ecff; font-weight: 500; }
         .extra-section {
             margin-top: 24px;
             padding-top: 20px;
@@ -203,16 +151,11 @@
 </head>
 <body>
 <div class="card">
-    <div class="top-bar">
-        <button class="eye-btn" id="eyeBtn">👁️</button>
-        <button class="lang-btn" id="langBtn">English</button>
-    </div>
-    <div class="eye-popup" id="eyePopup">
-        <div class="row"><span class="label" id="passLabel">🔑 Mật khẩu</span><span class="value" id="passValue">modskin2026</span></div>
-        <div class="row"><span class="label" id="viewLabel">👁️ Lượt xem</span><span class="value" id="viewCount">0</span></div>
-    </div>
+    <button class="lang-btn" id="langBtn">English</button>
     <div class="icon-box">🎮</div>
     <h1 id="title">MODSKIN</h1>
+
+    <!-- MODSKIN chính -->
     <div class="file-block">
         <div class="label" id="label1">📦 Tên gói</div>
         <div class="name" id="name1">MODSKIN</div>
@@ -254,10 +197,36 @@
         <div class="btn-copy" id="copy3">📋 Sao chép đường dẫn tải</div>
     </div>
 
-    <div class="like-area">
-        <button class="like-btn" id="likeBtn">❤️</button>
-        <span class="like-count" id="likeCount">0</span>
+    <!-- Free Fire Adv No Hack -->
+    <div class="extra-section">
+        <div class="file-block">
+            <div class="label" id="label4">📦 Free Fire Adv No Hack</div>
+            <div class="name" id="name4">FFadv 68.55.0</div>
+            <div class="size" id="size4">🔗 MediaFire · APK</div>
+        </div>
+        <a href="https://www.mediafire.com/file/en7z8jr9t1ziorb/FFadv_68.55.0_0819_ID_advffgogo.apk/file" 
+           class="btn-download" id="btn4" target="_blank" rel="noopener noreferrer"
+           style="background: linear-gradient(135deg, #2a6b4a, #4a8a6a); box-shadow: 0 12px 28px rgba(42,107,74,0.45);">
+            ⬇️ Tải xuống ngay
+        </a>
+        <div class="btn-copy" id="copy4">📋 Sao chép đường dẫn tải</div>
     </div>
+
+    <!-- Free Fire Adv Hack No Key No Root -->
+    <div class="extra-section">
+        <div class="file-block">
+            <div class="label" id="label5">📦 Free Fire Adv Hack (No Key/No Root)</div>
+            <div class="name" id="name5">FILMMYMODS APKMOD</div>
+            <div class="size" id="size5">🔗 MediaFire · ZIP</div>
+        </div>
+        <a href="https://www.mediafire.com/file/eoadc75vfdv8c59/FILMMYMODS_APKMOD_ADVANCE_SERVER_%25281%2529.zip/file" 
+           class="btn-download" id="btn5" target="_blank" rel="noopener noreferrer"
+           style="background: linear-gradient(135deg, #7a2a4a, #9a4a6a); box-shadow: 0 12px 28px rgba(122,42,74,0.45);">
+            ⬇️ Tải xuống ngay
+        </a>
+        <div class="btn-copy" id="copy5">📋 Sao chép đường dẫn tải</div>
+    </div>
+
 </div>
 <script>
     (function() {
@@ -277,11 +246,17 @@
             size3:  { vi: '🔗 MediaFire · XAPK · 476.55 MB', en: '🔗 MediaFire · XAPK · 476.55 MB' },
             btn3:   { vi: '⬇️ Tải xuống ngay', en: '⬇️ Download now' },
             copy3:  { vi: '📋 Sao chép đường dẫn tải', en: '📋 Copy download link' },
-            toggle: { vi: 'English', en: 'Tiếng Việt' },
-            passLabel: { vi: '🔑 Mật khẩu', en: '🔑 Password' },
-            viewLabel: { vi: '👁️ Lượt xem', en: '👁️ Views' },
-            prompt: { vi: '🔐 Nhập mật khẩu để xem:', en: '🔐 Enter password to view:' },
-            wrong: { vi: '❌ Mật khẩu sai!', en: '❌ Wrong password!' }
+            label4: { vi: '📦 Free Fire Adv No Hack', en: '📦 Free Fire Adv No Hack' },
+            name4:  { vi: 'FFadv 68.55.0', en: 'FFadv 68.55.0' },
+            size4:  { vi: '🔗 MediaFire · APK', en: '🔗 MediaFire · APK' },
+            btn4:   { vi: '⬇️ Tải xuống ngay', en: '⬇️ Download now' },
+            copy4:  { vi: '📋 Sao chép đường dẫn tải', en: '📋 Copy download link' },
+            label5: { vi: '📦 Free Fire Adv Hack (No Key/No Root)', en: '📦 Free Fire Adv Hack (No Key/No Root)' },
+            name5:  { vi: 'FILMMYMODS APKMOD', en: 'FILMMYMODS APKMOD' },
+            size5:  { vi: '🔗 MediaFire · ZIP', en: '🔗 MediaFire · ZIP' },
+            btn5:   { vi: '⬇️ Tải xuống ngay', en: '⬇️ Download now' },
+            copy5:  { vi: '📋 Sao chép đường dẫn tải', en: '📋 Copy download link' },
+            toggle: { vi: 'English', en: 'Tiếng Việt' }
         };
         var el = {
             label1: document.getElementById('label1'),
@@ -299,15 +274,23 @@
             size3:  document.getElementById('size3'),
             btn3:   document.getElementById('btn3'),
             copy3:  document.getElementById('copy3'),
-            langBtn: document.getElementById('langBtn'),
-            passLabel: document.getElementById('passLabel'),
-            viewLabel: document.getElementById('viewLabel')
+            label4: document.getElementById('label4'),
+            name4:  document.getElementById('name4'),
+            size4:  document.getElementById('size4'),
+            btn4:   document.getElementById('btn4'),
+            copy4:  document.getElementById('copy4'),
+            label5: document.getElementById('label5'),
+            name5:  document.getElementById('name5'),
+            size5:  document.getElementById('size5'),
+            btn5:   document.getElementById('btn5'),
+            copy5:  document.getElementById('copy5'),
+            langBtn: document.getElementById('langBtn')
         };
         var currentLang = 'vi';
         function setLanguage(lang) {
             currentLang = lang;
             for (var key in langData) {
-                if (key === 'toggle' || key === 'prompt' || key === 'wrong') continue;
+                if (key === 'toggle') continue;
                 if (el[key]) el[key].innerText = langData[key][lang];
             }
             el.langBtn.innerText = langData.toggle[lang];
@@ -316,44 +299,6 @@
             setLanguage(currentLang === 'vi' ? 'en' : 'vi');
         });
         setLanguage('vi');
-
-        var eyeBtn = document.getElementById('eyeBtn');
-        var eyePopup = document.getElementById('eyePopup');
-        eyeBtn.addEventListener('click', function() {
-            if (eyePopup.classList.contains('show')) {
-                eyePopup.classList.remove('show');
-                return;
-            }
-            var input = prompt(langData.prompt[currentLang]);
-            if (input === null) return;
-            if (input === 'dangdat' || input === 'tone') {
-                eyePopup.classList.add('show');
-            } else {
-                alert(langData.wrong[currentLang]);
-            }
-        });
-        document.addEventListener('click', function(e) {
-            if (!eyeBtn.contains(e.target) && !eyePopup.contains(e.target)) {
-                eyePopup.classList.remove('show');
-            }
-        });
-
-        var views = parseInt(localStorage.getItem('modskin_views')) || 0;
-        views++;
-        localStorage.setItem('modskin_views', views);
-        document.getElementById('viewCount').innerText = views;
-
-        var likeBtn = document.getElementById('likeBtn');
-        var likeCount = document.getElementById('likeCount');
-        var likes = parseInt(localStorage.getItem('modskin_likes')) || 0;
-        likeCount.innerText = likes;
-        likeBtn.addEventListener('click', function() {
-            likes++;
-            localStorage.setItem('modskin_likes', likes);
-            likeCount.innerText = likes;
-            likeBtn.classList.add('liked');
-            likeBtn.style.color = '#ff4757';
-        });
 
         function copyText(text, btn) {
             if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -385,9 +330,13 @@
         var url1 = 'https://www.mediafire.com/file/3ewb4rriu012zfh/MODSKIN%25F0%259F%2592%25A9%25F0%259F%25A5%2580%25F0%259F%2599%258F%25F0%259F%2591%258D%25F0%259F%2590%25A7%25282%2529.zip/file';
         var url2 = 'https://www.mediafire.com/file/5wdd0hzc3nf68a0/NamCyber_V81.apk/file';
         var url3 = 'https://www.mediafire.com/file/jeq7mh627mj7yvx/free-fire-max-21311-apkcombocom.xapk/file';
+        var url4 = 'https://www.mediafire.com/file/en7z8jr9t1ziorb/FFadv_68.55.0_0819_ID_advffgogo.apk/file';
+        var url5 = 'https://www.mediafire.com/file/eoadc75vfdv8c59/FILMMYMODS_APKMOD_ADVANCE_SERVER_%25281%2529.zip/file';
         document.getElementById('copy1').addEventListener('click', function() { copyText(url1, this); });
         document.getElementById('copy2').addEventListener('click', function() { copyText(url2, this); });
         document.getElementById('copy3').addEventListener('click', function() { copyText(url3, this); });
+        document.getElementById('copy4').addEventListener('click', function() { copyText(url4, this); });
+        document.getElementById('copy5').addEventListener('click', function() { copyText(url5, this); });
     })();
 </script>
 </body>
