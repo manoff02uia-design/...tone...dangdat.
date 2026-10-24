@@ -82,12 +82,12 @@
 </head>
 <body>
 
-    <div id="initialBox" class="box">x 100 Audio</div>
-    <input type="file" id="fileInput" accept="audio/*" class="hidden">
+    <div id="initialBox" class="box">x 100 MP4</div>
+    <input type="file" id="fileInput" accept="audio/*,video/mp4" class="hidden">
 
-    <div id="resultBox" class="box hidden">Play x 100 Audio</div>
+    <div id="resultBox" class="box hidden">Play x 100 MP4</div>
     
-    <button id="downloadBtn" class="btn-download hidden">DOWNLOAD WAV</button>
+    <button id="downloadBtn" class="btn-download hidden">DOWNLOAD MP4</button>
 
     <div id="status">Waiting for input...</div>
 
@@ -159,10 +159,10 @@
                 initialBox.classList.add('hidden');
                 resultBox.classList.remove('hidden');
                 downloadBtn.classList.remove('hidden');
-                statusDiv.innerText = "Ready. Click the box to play or download the WAV.";
+                statusDiv.innerText = "Ready. Click the box to play or download the MP4.";
 
             } catch (error) {
-                statusDiv.innerText = "Error decoding audio file.";
+                statusDiv.innerText = "Error decoding file. Make sure it's a valid MP4 or audio file.";
                 initialBox.style.pointerEvents = 'auto';
                 initialBox.style.opacity = '1';
             }
@@ -176,7 +176,7 @@
                 sourceNode.disconnect();
                 sourceNode = null;
                 resultBox.classList.remove('playing');
-                resultBox.innerText = "Play x 100 Audio";
+                resultBox.innerText = "Play x 100 MP4";
                 statusDiv.innerText = "Stopped.";
                 return;
             }
@@ -203,7 +203,7 @@
             sourceNode.onended = () => {
                 sourceNode = null;
                 resultBox.classList.remove('playing');
-                resultBox.innerText = "Play x 100 Audio";
+                resultBox.innerText = "Play x 100 MP4";
                 statusDiv.innerText = "Playback finished.";
             };
         });
@@ -216,7 +216,7 @@
             const a = document.createElement('a');
             a.style.display = 'none';
             a.href = url;
-            a.download = 'loudspeaker_x100.wav';
+            a.download = 'loudspeaker_x100.mp4';
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);
@@ -263,7 +263,7 @@
                 offset++;
             }
 
-            return new Blob([bufferArray], { type: "audio/wav" });
+            return new Blob([bufferArray], { type: "audio/mp4" });
         }
     </script>
 </body>
