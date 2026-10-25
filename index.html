@@ -1,63 +1,57 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GRU Web</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;background:#080808;color:white;font-family:Arial}
-header{height:52px;display:flex;align-items:center;gap:8px;padding:8px;background:#151515}
-button{background:#292929;color:white;border:0;border-radius:6px;padding:9px 13px}
-input{flex:1;width:50px;padding:10px;border:1px solid #444;border-radius:6px;background:#080808;color:white}
-iframe{width:100%;height:calc(100dvh - 52px);border:0;background:white}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gringo XP GetKey Auto</title>
+    <style>
+        body { background: #121212; color: #fff; font-family: sans-serif; margin: 0; padding: 10px; text-align: center; }
+        #frame-container { position: relative; width: 100%; height: 80vh; border: 2px solid #00ff00; border-radius: 8px; overflow: hidden; margin-bottom: 10px; }
+        iframe { width: 100%; height: 100%; border: none; }
+        .btn { padding: 15px 30px; font-size: 18px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin: 5px; }
+        .btn-red { background: #ff3333; color: #fff; }
+        .btn-green { background: #00ff00; color: #000; }
+        #status { margin-top: 10px; font-size: 14px; color: #aaa; }
+    </style>
 </head>
 <body>
-<header>
-<button onclick="back()">←</button>
-<input id="url" value="https://gringoxp.site/gringo/GetKey">
-<button onclick="openPage()">Go</button>
-</header>
-<iframe id="page" title="Web" src="https://gringoxp.site/gringo/GetKey"></iframe>
-<script>
-const page=document.getElementById("page");
-const url=document.getElementById("url");
-const historyList=[];
-let index=-1;
 
-function openPage(){
-let address=url.value.trim();
-if(!/^https?:\/\//i.test(address)) address="https://"+address;
-try{
-const parsed=new URL(address);
-if(!["http:","https:"].includes(parsed.protocol))return;
-address=parsed.href;
-historyList.splice(index+1);
-historyList.push(address);
-index=historyList.length-1;
-url.value=address;
-page.src=address;
-}catch{
-alert("Invalid URL");
-}
-}
+    <h2>GRINGO XP GETKEY</h2>
+    
+    <div id="frame-container">
+        <iframe id="targetFrame" src="https://gringoxp.site/gringo/GetKey" allow="clipboard-write"></iframe>
+    </div>
 
-function back(){
-if(index>0){
-index--;
-url.value=historyList[index];
-page.src=historyList[index];
-}
-}
+    <button class="btn btn-red" onclick="openInNewTab()">MỞ TRONG TAB MỚI</button>
+    <button class="btn btn-green" onclick="forceRedirect()">CHUYỂN HƯỚNG NGAY</button>
 
-page.addEventListener("load",()=>{
-try{url.value=page.contentWindow.location.href}catch{}
-});
+    <div id="status">Đang kiểm tra kết nối...</div>
 
-historyList.push(url.value);
-index=0;
-</script>
+    <script>
+        const iframe = document.getElementById('targetFrame');
+        const statusDiv = document.getElementById('status');
+        
+        function openInNewTab() {
+            window.open('https://gringoxp.site/gringo/GetKey', '_blank');
+        }
+
+        function forceRedirect() {
+            window.location.href = 'https://example.com'; 
+        }
+
+        setTimeout(() => {
+            try {
+                const doc = iframe.contentWindow.document;
+                if (doc.body.innerHTML === '') {
+                    statusDiv.innerText = 'Iframe trống hoặc bị chặn. Bấm nút đỏ.';
+                } else {
+                    statusDiv.innerText = 'Iframe đã tải thành công.';
+                }
+            } catch (e) {
+                statusDiv.innerText = 'Bị chặn bởi X-Frame-Options. Bấm nút đỏ để mở.';
+            }
+        }, 3000);
+    </script>
+
 </body>
 </html>
